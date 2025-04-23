@@ -81,15 +81,15 @@ namespace MiniBankSystem_1
             Console.Write("Select option: ");
             string adminChoice = Console.ReadLine();
 
-            //switch (adminChoice)
-            //{
-            //    case "1": ProcessNextAccountRequest(); break;
-            //    case "2": ViewReviews(); break;
-            //    case "3": ViewAllAccounts(); break;
-            //    case "4": ViewPendingRequests(); break;
-            //    case "0": inAdminMenu = false; break;
-            //    default: Console.WriteLine("Invalid choice."); break;
-            //}
+            switch (adminChoice)
+            {
+                case "1": ProcessNextAccountRequest(); break;
+                case "2": ViewReviews(); break;
+                case "3": ViewAllAccounts(); break;
+                case "4": ViewPendingRequests(); break;
+                case "0": inAdminMenu = false; break;
+                default: Console.WriteLine("Invalid choice."); break;
+            }
         }
 
         ////////////////////////////////////////////////////////////////////
