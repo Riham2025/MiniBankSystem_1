@@ -8,6 +8,11 @@ namespace MiniBankSystem_1
     {
         // Queue to hold account requests
         static Queue<string> accountRequests = new Queue<string>();
+        // List to hold all accounts
+        static List<int> accountNumbers = new List<int>();
+
+
+        static int lastAccountNumber; // To keep track of the last account number assigned
         static void Main()
         {
 
@@ -126,7 +131,16 @@ namespace MiniBankSystem_1
                 string name = strings[0]; // save the name.
                 string nationalID = strings[1]; // save the national ID
 
-                // Process the request ( create an account)
+                // Process the request ( create an account)>>>>>>>
+
+                //To ensure that every account created receives a unique and sequential number.
+
+                int newAccountNumber = lastAccountNumber + 1;
+                accountNumbers.Add(newAccountNumber); // add the new account number to the list of account numbers
+
+
+
+
 
 
 
