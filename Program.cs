@@ -123,7 +123,7 @@ namespace MiniBankSystem_1
                 // Dequeue the next request from the queue(request)
                 string request = accountRequests.Dequeue();
                 string[] strings = request.Split(','); // split the string dpending on the ,
-                string name = strings[0]; // save the name
+                string name = strings[0]; // save the name.
                 string nationalID = strings[1]; // save the national ID
 
                 // Process the request ( create an account)
