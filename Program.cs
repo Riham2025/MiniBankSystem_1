@@ -11,7 +11,7 @@ namespace MiniBankSystem_1
         static void Main()
         {
 
-            // main menu
+            // main menu 
             bool running = true;
 
             while (running)
