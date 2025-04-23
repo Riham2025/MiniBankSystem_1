@@ -8,8 +8,10 @@ namespace MiniBankSystem_1
     {
         // Queue to hold account requests
         static Queue<string> accountRequests = new Queue<string>();
+
         // List to hold all accounts
         static List<int> accountNumbers = new List<int>();
+        static List<string> accountName = new List<string>();
 
 
         static int lastAccountNumber; // To keep track of the last account number assigned
@@ -137,6 +139,7 @@ namespace MiniBankSystem_1
 
                 int newAccountNumber = lastAccountNumber + 1;
                 accountNumbers.Add(newAccountNumber); // add the new account number to the list of account numbers
+                accountName.Add(name); // add the name to the list of account names
 
 
 
