@@ -53,16 +53,16 @@ namespace MiniBankSystem_1
             Console.Write("Select option: ");
             string userChoice = Console.ReadLine();
 
-            //switch (userChoice)
-            //{
-            //    case "1": CreateAccount(); break;
-            //    case "2": Deposit(); break;
-            //    case "3": Withdraw(); break;
-            //    case "4": CheckBalance(); break;
-            //    case "5": SubmitReview(); break;
-            //    case "0": break;
-            //    default: Console.WriteLine("Invalid choice."); break;
-            //}
+            switch (userChoice)
+            {
+                case "1": CreateAccount(); break;
+                case "2": Deposit(); break;
+                case "3": Withdraw(); break;
+                case "4": CheckBalance(); break;
+                case "5": SubmitReview(); break;
+                case "0": break;
+                default: Console.WriteLine("Invalid choice."); break;
+            }
         }
 
 
