@@ -103,13 +103,35 @@ namespace MiniBankSystem_1
             Console.Write("Enter your National ID: ");
             string nationalID = (Console.ReadLine());
 
-            //To save name & ID in Queue
+            //create Queue
             string request = $"{name},{nationalID}";
 
             // add new entry to the queue
             accountRequests.Enqueue(request);
 
             Console.WriteLine("Account request submitted successfully.");
+
+            static void ProcessNextAccountRequest()
+            {
+                // Check if there are any pending requests
+
+                if (accountRequests.Count == 0) //if the queue is empty
+                {
+                    Console.WriteLine("No pending account requests.");
+                    return;
+                }
+                // Dequeue the next request from the queue(request)
+                string request = accountRequests.Dequeue();
+                string[] strings = request.Split(','); // split the string dpending on the ,
+                string name = strings[0]; // save the name
+                string nationalID = strings[1]; // save the national ID
+
+                // Process the request ( create an account)
+
+
+
+
+            }
 
 
 
