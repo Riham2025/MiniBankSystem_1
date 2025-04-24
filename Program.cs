@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq.Expressions;
 
 namespace MiniBankSystem_1
 {
@@ -65,10 +66,10 @@ namespace MiniBankSystem_1
             {
                 case "1": CreateAccount(); break;
                 case "2": Deposit(); break;
-                case "3": Withdraw(); break;
-                case "4": CheckBalance(); break;
-                case "5": SubmitReview(); break;
-                case "0": break;
+                //case "3": Withdraw(); break;
+                //case "4": CheckBalance(); break;
+                //case "5": SubmitReview(); break;
+                //case "0": break;
                 default: Console.WriteLine("Invalid choice."); break;
             }
         }
@@ -89,20 +90,21 @@ namespace MiniBankSystem_1
             Console.Write("Select option: ");
             string adminChoice = Console.ReadLine();
 
-            switch (adminChoice)
-            {
-                case "1": ProcessNextAccountRequest(); break;
-                case "2": ViewReviews(); break;
-                case "3": ViewAllAccounts(); break;
-                case "4": ViewPendingRequests(); break;
-                case "0": inAdminMenu = false; break;
-                default: Console.WriteLine("Invalid choice."); break;
-            }
+            //switch (adminChoice)
+            //{
+            //    case "1": ProcessNextAccountRequest(); break;
+            //    case "2": ViewReviews(); break;
+            //    case "3": ViewAllAccounts(); break;
+            //    case "4": ViewPendingRequests(); break;
+            //    case "0": inAdminMenu = false; break;
+            //    default: Console.WriteLine("Invalid choice."); break;
+            //}
         }
 
         ////////////////////////////////////////////////////////////////////
 
         static void CreateAccount()
+
         {
             Console.Clear();
             Console.WriteLine("\n====== Create Account ======");
@@ -142,21 +144,66 @@ namespace MiniBankSystem_1
                 accountNumbers.Add(newAccountNumber); // add the new account number to the list of account numbers
                 accountName.Add(name); // add the name to the list of account names
                 accountBalance.Add(0.0); // add the new account number to the list of balances with a default balance of 0
+                lastAccountNumber = newAccountNumber; // update the last account number
 
-
-
-
-
-
-
+                Console.WriteLine("Account created for :" + name,  "with Account Number :" + newAccountNumber);
 
             }
 
+            
+
+        }
+
+        static void Deposit()
+        {
+            int index = GetAccountIndex();
+            if (index == -1) return; // if the account number is not found, return
+
+            try
+            {
+                Console.WriteLine("\n====== Deposit ======");
+                Console.Write("Enter amount to deposit: ");
+                double amount = double.Parse(Console.ReadLine());
+                if (amount <= 0)
+                {
+                    Console.WriteLine("Invalid amount. Please enter a positive number.");
+                    return;
+                }
+                accountBalance[index] += amount; // add the amount to the account balance
+                Console.WriteLine($"Deposited {amount} to account number {accountNumbers[index]}.");
+
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number.");
+            }
 
 
+        }
+        static int GetAccountIndex()
+        {
+            Console.Write("Enter account number: ");
+            try
+            {
+                int accNum = Convert.ToInt32(Console.ReadLine());
+                int index = accountNumbers.IndexOf(accNum);
 
+                if (index == -1)
+                {
+                    Console.WriteLine("Account not found.");
+                    return -1;
+                }
+
+                return index;
+            }
+            catch
+            {
+                Console.WriteLine("Invalid input.");
+                return -1;
+            }
         }
 
     }
 
 }
+
