@@ -223,7 +223,8 @@ namespace MiniBankSystem_1
                     Console.WriteLine("Invalid amount. Please enter a positive number.");
                     return;
                 }
-                if (accountBalance[index] < amount)
+                if (accountBalance[index] < amount)// check if the balance is Insufficient
+               
                 {
                     Console.WriteLine("Insufficient balance.");
                     return;
