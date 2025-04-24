@@ -51,26 +51,32 @@ namespace MiniBankSystem_1
         // ===========User Menu===========
         static void UserMenu()
         {
-            Console.Clear();
-            Console.WriteLine("\n====== User Menu ======");
-            Console.WriteLine("1. Create Account");
-            Console.WriteLine("2. Deposit");
-            Console.WriteLine("3. Withdraw");
-            Console.WriteLine("4. Check Balance");
-            Console.WriteLine("5. Submit Review/Complaint");
-            Console.WriteLine("0. Back to Main Menu");
-            Console.Write("Select option: ");
-            string userChoice = Console.ReadLine();
-
-            switch (userChoice)
+            bool inUserMenu = true; // to keep the user in the menu until they choose to exit
+            while (inUserMenu)
             {
-                case "1": CreateAccount(); break;
-                case "2": Deposit(); break;
-                //case "3": Withdraw(); break;
-                //case "4": CheckBalance(); break;
-                //case "5": SubmitReview(); break;
-                //case "0": break;
-                default: Console.WriteLine("Invalid choice."); break;
+
+                Console.Clear();
+                Console.WriteLine("\n====== User Menu ======");
+                Console.WriteLine("1. Create Account");
+                Console.WriteLine("2. Deposit");
+                Console.WriteLine("3. Withdraw");
+                Console.WriteLine("4. Check Balance");
+                Console.WriteLine("5. Submit Review/Complaint");
+                Console.WriteLine("0. Back to Main Menu");
+                Console.Write("Select option: ");
+                string userChoice = Console.ReadLine();
+
+                switch (userChoice)
+                {
+                    case "1": CreateAccount(); break;
+                    case "2": Deposit(); break;
+                    case "3": Withdraw(); break;
+                    //case "4": CheckBalance(); break;
+                    //case "5": SubmitReview(); break;
+                    case "0":inUserMenu = false;
+                            break;
+                    default: Console.WriteLine("Invalid choice."); break;
+                }
             }
         }
 
@@ -200,6 +206,34 @@ namespace MiniBankSystem_1
             {
                 Console.WriteLine("Invalid input.");
                 return -1;
+            }
+        }
+
+        static void Withdraw()
+        {
+            int index = GetAccountIndex();
+            if (index == -1) return; // if the account number is not found, return
+            try
+            {
+                Console.WriteLine("\n====== Withdraw ======");
+                Console.Write("Enter amount to withdraw: ");
+                double amount = double.Parse(Console.ReadLine());
+                if (amount <= 0)
+                {
+                    Console.WriteLine("Invalid amount. Please enter a positive number.");
+                    return;
+                }
+                if (accountBalance[index] < amount)
+                {
+                    Console.WriteLine("Insufficient balance.");
+                    return;
+                }
+                accountBalance[index] -= amount; // subtract the amount from the account balance
+                Console.WriteLine($"Withdrew {amount} from account number {accountNumbers[index]}.");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number.");
             }
         }
 
