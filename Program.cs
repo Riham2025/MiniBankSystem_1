@@ -238,6 +238,15 @@ namespace MiniBankSystem_1
             }
         }
 
+        static void CheckBalance()
+        {
+            int index = GetAccountIndex();
+            if (index == -1) return; // if the account number is not found, return
+            Console.WriteLine($"Account Number: {accountNumbers[index]}");
+            Console.WriteLine($"Account Name: {accountName[index]}");
+            Console.WriteLine($"Account Balance: {accountBalance[index]}");
+        }
+
     }
 
 }
