@@ -7,6 +7,10 @@ namespace MiniBankSystem_1
 {
     internal class Program
     {
+        // File path 
+        const string filePath = "accountInfo.txt";
+
+
         // Queue to hold account requests
         static Queue<string> accountRequests = new Queue<string>();
 
@@ -73,8 +77,9 @@ namespace MiniBankSystem_1
                     case "3": Withdraw(); break;
                     //case "4": CheckBalance(); break;
                     //case "5": SubmitReview(); break;
-                    case "0":inUserMenu = false;
-                            break;
+                    case "0":
+                        inUserMenu = false;
+                        break;
                     default: Console.WriteLine("Invalid choice."); break;
                 }
             }
@@ -127,36 +132,37 @@ namespace MiniBankSystem_1
 
             Console.WriteLine("Account request submitted successfully.");
 
-            static void ProcessNextAccountRequest()
+
+
+
+        }
+
+        static void ProcessNextAccountRequest()
+        {
+            // Check if there are any pending requests
+
+            if (accountRequests.Count == 0) //if the queue is empty
             {
-                // Check if there are any pending requests
-
-                if (accountRequests.Count == 0) //if the queue is empty
-                {
-                    Console.WriteLine("No pending account requests.");
-                    return;
-                }
-                // Dequeue the next request from the queue(request)
-                string request = accountRequests.Dequeue();
-                string[] strings = request.Split(','); // split the string dpending on the ,
-                string name = strings[0]; // save the name.
-                string nationalID = strings[1]; // save the national ID
-
-                // Process the request ( create an account)>>>>>>>
-
-                //To ensure that every account created receives a unique and sequential number.
-
-                int newAccountNumber = lastAccountNumber + 1;
-                accountNumbers.Add(newAccountNumber); // add the new account number to the list of account numbers
-                accountName.Add(name); // add the name to the list of account names
-                accountBalance.Add(0.0); // add the new account number to the list of balances with a default balance of 0
-                lastAccountNumber = newAccountNumber; // update the last account number
-
-                Console.WriteLine("Account created for :" + name,  "with Account Number :" + newAccountNumber);
-
+                Console.WriteLine("No pending account requests.");
+                return;
             }
+            // Dequeue the next request from the queue(request)
+            string request = accountRequests.Dequeue();
+            string[] strings = request.Split(','); // split the string dpending on the ,
+            string name = strings[0]; // save the name.
+            string nationalID = strings[1]; // save the national ID
 
-            
+            // Process the request ( create an account)>>>>>>>
+
+            //To ensure that every account created receives a unique and sequential number.
+
+            int newAccountNumber = lastAccountNumber + 1;
+            accountNumbers.Add(newAccountNumber); // add the new account number to the list of account numbers
+            accountName.Add(name); // add the name to the list of account names
+            accountBalance.Add(0.0); // add the new account number to the list of balances with a default balance of 0
+            lastAccountNumber = newAccountNumber; // update the last account number
+
+            Console.WriteLine("Account created for :" + name, "with Account Number :" + newAccountNumber);
 
         }
 
@@ -224,7 +230,7 @@ namespace MiniBankSystem_1
                     return;
                 }
                 if (accountBalance[index] < amount)// check if the balance is Insufficient
-               
+
                 {
                     Console.WriteLine("Insufficient balance.");
                     return;
@@ -238,6 +244,27 @@ namespace MiniBankSystem_1
             }
         }
 
+        static void SaveAccountInformationToFile()
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(filePath))
+                {
+                    for (int i = 0; i < accountNumbers.Count; i++)
+                    {
+                        string dataLine = ($"{accountNumbers[i]},{accountName[i]},{accountBalance[i]}");
+                        writer.WriteLine(dataLine);
+                    }
+                }
+                Console.WriteLine("Account information saved to file.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error saving account information: ");
+
+            }
+        }
+
         static void CheckBalance()
         {
             int index = GetAccountIndex();
@@ -247,7 +274,9 @@ namespace MiniBankSystem_1
             Console.WriteLine($"Account Balance: {accountBalance[index]}");
         }
 
+
     }
 
-}
+
+}  
 
