@@ -75,7 +75,7 @@ namespace MiniBankSystem_1
                     case "1": CreateAccount(); break;
                     case "2": Deposit(); break;
                     case "3": Withdraw(); break;
-                    //case "4": CheckBalance(); break;
+                    case "4": CheckBalance(); break;
                     //case "5": SubmitReview(); break;
                     case "0":
                         inUserMenu = false;
@@ -265,6 +265,36 @@ namespace MiniBankSystem_1
             }
         }
 
+        static void LoadAccountInformationFromFile()
+        {
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    using (StreamReader reader = new StreamReader(filePath))
+                    {
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            string[] data = line.Split(',');
+                            accountNumbers.Add(int.Parse(data[0]));
+                            accountName.Add(data[1]);
+                            accountBalance.Add(double.Parse(data[2]));
+                        }
+                    }
+                    Console.WriteLine("Account information loaded from file.");
+                }
+                else
+                {
+                    Console.WriteLine("No saved account information found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error loading account information: " + ex.Message);
+            }
+        }
+
         static void CheckBalance()
         {
             int index = GetAccountIndex();
@@ -274,9 +304,37 @@ namespace MiniBankSystem_1
             Console.WriteLine($"Account Balance: {accountBalance[index]}");
         }
 
+        static void ViewAllAccounts()
+        {
+            Console.Clear();
+            Console.WriteLine("\n====== All Accounts ======");
+            for (int i = 0; i < accountNumbers.Count; i++)
+            {
+                Console.WriteLine($"Account Number: {accountNumbers[i]}, Name: {accountName[i]}, Balance: {accountBalance[i]}");
+            }
+        }
+
+        static void ViewPendingRequests()
+        {
+            Console.Clear();
+            Console.WriteLine("\n====== Pending Account Requests ======");
+            if (accountRequests.Count == 0) //if the queue is empty
+            {
+                Console.WriteLine("No pending account requests.");
+                return;
+            }
+            foreach (string request in accountRequests)
+            {
+                string[] strings = request.Split(",");
+
+                Console.WriteLine($"Name: {strings[0]}, National ID: {strings[1]}");
+
+            }
+        }
+
 
     }
 
-
-}  
+}
+  
 
