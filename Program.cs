@@ -76,7 +76,7 @@ namespace MiniBankSystem_1
                     case "2": Deposit(); break;
                     case "3": Withdraw(); break;
                     case "4": CheckBalance(); break;
-                    //case "5": SubmitReview(); break;
+                    case "5": //SubmitReview(); break;
                     case "0":
                         inUserMenu = false;
                         break;
@@ -101,15 +101,15 @@ namespace MiniBankSystem_1
             Console.Write("Select option: ");
             string adminChoice = Console.ReadLine();
 
-            //switch (adminChoice)
-            //{
-            //    case "1": ProcessNextAccountRequest(); break;
-            //    case "2": ViewReviews(); break;
-            //    case "3": ViewAllAccounts(); break;
-            //    case "4": ViewPendingRequests(); break;
-            //    case "0": inAdminMenu = false; break;
-            //    default: Console.WriteLine("Invalid choice."); break;
-            //}
+            switch (adminChoice)
+            {
+                case "1": ProcessNextAccountRequest(); break;
+                case "2": ViewReviews(); break;
+                case "3": ViewAllAccounts(); break;
+                case "4": ViewPendingRequests(); break;
+                case "0": //inAdminMenu = false; break;
+                default: Console.WriteLine("Invalid choice."); break;
+            }
         }
 
         ////////////////////////////////////////////////////////////////////
@@ -323,14 +323,35 @@ namespace MiniBankSystem_1
                 Console.WriteLine("No pending account requests.");
                 return;
             }
-            foreach (string request in accountRequests)
+            foreach (string request in accountRequests) //starts looking for each request one by one in accountRequests, line by line
             {
-                string[] strings = request.Split(",");
+                string[] strings = request.Split(","); //To split the string
 
                 Console.WriteLine($"Name: {strings[0]}, National ID: {strings[1]}");
 
             }
         }
+
+        //=============================
+
+
+        static void submitReview()
+        {
+            Console.Clear();
+            Console.WriteLine("\n====== Submit Review/Complaint ======");
+            Console.Write("Enter your review/complaint: ");
+            string review = Console.ReadLine();
+            // Save the review to a file or process it as needed
+            // For simplicity, we'll just print it to the console
+            Console.WriteLine("Review submitted successfully.");
+
+        }
+
+
+
+
+
+
 
 
     }
