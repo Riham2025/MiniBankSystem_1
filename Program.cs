@@ -28,7 +28,7 @@ namespace MiniBankSystem_1
         static void Main()
         {
             LoadAccountInformationFromFile();
-            LoadReviewsFromFile(); // Load reviews from file at the start of the program
+            LoadReviewsFromFile();// Load reviews from file at the start of the program
 
             // main menu 
             bool running = true;
