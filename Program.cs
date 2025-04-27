@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace MiniBankSystem_1
 {
@@ -19,12 +21,14 @@ namespace MiniBankSystem_1
         static List<int> accountNumbers = new List<int>();
         static List<string> accountName = new List<string>();
         static List<double> accountBalance = new List<double>();
-       
+
 
 
         static int lastAccountNumber; // To keep track of the last account number assigned
         static void Main()
         {
+            LoadAccountInformationFromFile();
+            LoadReviewsFromFile(); // Load reviews from file at the start of the program
 
             // main menu 
             bool running = true;
@@ -44,6 +48,9 @@ namespace MiniBankSystem_1
                     case "1": UserMenu(); break;
                     case "2": AdminMenu(); break;
                     case "0":
+                        SaveAccountInformationToFile();
+                        SaveReviewsToFile();// Save reviews to file before exiting
+
 
                         running = false;
                         break;
@@ -74,11 +81,11 @@ namespace MiniBankSystem_1
 
                 switch (userChoice)
                 {
-                    case "1": CreateAccount(); break;
-                    case "2": Deposit(); break;
-                    case "3": Withdraw(); break;
-                    case "4": CheckBalance(); break;
-                    case "5": //SubmitReview(); break;
+                    case "1": CreateAccount(); Console.ReadLine(); break;
+                    case "2": Deposit(); Console.ReadLine(); break;
+                    case "3": Withdraw(); Console.ReadLine(); break;
+                    case "4": CheckBalance(); Console.ReadLine(); break;
+                    case "5": submitReview(); Console.ReadLine(); break;
                     case "0":
                         inUserMenu = false;
                         break;
@@ -93,24 +100,31 @@ namespace MiniBankSystem_1
 
         static void AdminMenu()
         {
-            Console.Clear();
-            Console.WriteLine("\n====== Admin Menu ======");
-            Console.WriteLine("1. Process Next Account Request");
-            Console.WriteLine("2. View Submitted Reviews");
-            Console.WriteLine("3. View All Accounts");
-            Console.WriteLine("4. View Pending Account Requests");
-            Console.WriteLine("0. Back to Main Menu");
-            Console.Write("Select option: ");
-            string adminChoice = Console.ReadLine();
-
-            switch (adminChoice)
+            bool inAdminMenu = true;
+            while (inAdminMenu)
             {
-                case "1": ProcessNextAccountRequest(); break;
-                case "2": ViewReviews(); break;
-                case "3": ViewAllAccounts(); break;
-                case "4": ViewPendingRequests(); break;
-                case "0": //inAdminMenu = false; break;
-                default: Console.WriteLine("Invalid choice."); break;
+                Console.Clear();
+                Console.WriteLine("\n====== Admin Menu ======");
+                Console.WriteLine("1. Process Next Account Request");
+                Console.WriteLine("2. View Submitted Reviews");
+                Console.WriteLine("3. View All Accounts");
+                Console.WriteLine("4. View Pending Account Requests");
+                Console.WriteLine("0. Back to Main Menu");
+                Console.Write("Select option: ");
+                string adminChoice = Console.ReadLine();
+
+                switch (adminChoice)
+                {
+                    case "1": ProcessNextAccountRequest(); Console.ReadLine(); break;
+                    case "2": ViewReviews(); Console.ReadLine(); break;
+                    case "3": ViewAllAccounts(); Console.ReadLine(); break;
+                    case "4":
+                        ViewPendingRequests();
+                        Console.ReadLine();
+                        break;
+                    case "0": inAdminMenu = false; break;
+                    default: Console.WriteLine("Invalid choice."); break;
+                }
             }
         }
 
@@ -164,7 +178,7 @@ namespace MiniBankSystem_1
             accountBalance.Add(0.0); // add the new account number to the list of balances with a default balance of 0
             lastAccountNumber = newAccountNumber; // update the last account number
 
-            Console.WriteLine("Account created for :" + name, "with Account Number :" + newAccountNumber);
+            Console.WriteLine($"Account created for :  {name}  with Account Number :  {newAccountNumber}");
 
         }
 
@@ -196,7 +210,7 @@ namespace MiniBankSystem_1
         }
         static int GetAccountIndex()
         {
-            Console.Write("Enter account number: ");
+            Console.Write("Enter Account number: ");
             try
             {
                 int accNum = Convert.ToInt32(Console.ReadLine());
@@ -205,7 +219,7 @@ namespace MiniBankSystem_1
                 if (index == -1)
                 {
                     Console.WriteLine("Account not found.");
-                    return -1;
+                    return index;
                 }
 
                 return index;
@@ -213,8 +227,9 @@ namespace MiniBankSystem_1
             catch
             {
                 Console.WriteLine("Invalid input.");
-                return -1;
+               
             }
+            return -1; // return -1 if the account number is not found
         }
 
         static void Withdraw()
@@ -279,7 +294,8 @@ namespace MiniBankSystem_1
                         while ((line = reader.ReadLine()) != null)
                         {
                             string[] data = line.Split(',');
-                            accountNumbers.Add(int.Parse(data[0]));
+                            int accountNumber = Convert.ToInt32(data[0]);
+                            accountNumbers.Add(accountNumber);
                             accountName.Add(data[1]);
                             accountBalance.Add(double.Parse(data[2]));
                         }
@@ -369,9 +385,9 @@ namespace MiniBankSystem_1
 
         }
 
-        static void SaveReviewsToFile() 
-            // Save the reviews to a file
-                                        // For simplicity, we'll just print it to the console
+        static void SaveReviewsToFile()
+        // Save the reviews to a file
+        // For simplicity, we'll just print it to the console
         {
             try
             {
@@ -394,22 +410,25 @@ namespace MiniBankSystem_1
         {
             try
             {
-                if (File.Exists("reviews.txt")) return; //if the file exists
+                if (File.Exists("reviews.txt"))  //if the file exists
                 {
                     using (StreamReader reader = new StreamReader("reviews.txt"))
                     {
                         string line;
-                        while ((line = reader.ReadLine()) != null)
+                        while ((line = reader.ReadLine()) != null) 
                         {
                             Reviews.Push(line);
                         }
                     }
                     Console.WriteLine("Reviews loaded from file.");
+                    return;
                 }
+
                 else
-                {
-                    Console.WriteLine("No saved reviews found.");
+                {   
+                        Console.WriteLine("No saved reviews found.");
                 }
+                
             }
             catch (Exception ex)
             {
@@ -420,5 +439,7 @@ namespace MiniBankSystem_1
 
         }
 
+
+    }
 
 }
