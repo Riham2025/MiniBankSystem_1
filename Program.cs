@@ -369,7 +369,7 @@ namespace MiniBankSystem_1
 
         }
 
-        static void SaveReviewsToFile() //// Save the reviews to a file
+        static void SaveReviewsToFile() // Save the reviews to a file
                                         // For simplicity, we'll just print it to the console
         {
             try
