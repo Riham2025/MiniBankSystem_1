@@ -369,7 +369,8 @@ namespace MiniBankSystem_1
 
         }
 
-        static void SaveReviewsToFile() // Save the reviews to a file
+        static void SaveReviewsToFile() 
+            // Save the reviews to a file
                                         // For simplicity, we'll just print it to the console
         {
             try
@@ -389,9 +390,35 @@ namespace MiniBankSystem_1
             }
         }
 
+        static void LoadReviewsFromFile()
+        {
+            try
+            {
+                if (File.Exists("reviews.txt")) return; //if the file exists
+                {
+                    using (StreamReader reader = new StreamReader("reviews.txt"))
+                    {
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            Reviews.Push(line);
+                        }
+                    }
+                    Console.WriteLine("Reviews loaded from file.");
+                }
+                else
+                {
+                    Console.WriteLine("No saved reviews found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error loading reviews: " + ex.Message);
+            }
 
 
-    }
+
+        }
 
 
 }
