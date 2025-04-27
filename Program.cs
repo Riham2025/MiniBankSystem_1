@@ -18,6 +18,7 @@ namespace MiniBankSystem_1
         static List<int> accountNumbers = new List<int>();
         static List<string> accountName = new List<string>();
         static List<double> accountBalance = new List<double>();
+        static List<string> Reviews = new List<string>();
 
 
         static int lastAccountNumber; // To keep track of the last account number assigned
@@ -347,15 +348,27 @@ namespace MiniBankSystem_1
 
         }
 
+        static void ViewReviews()
+        {
+            Console.Clear();
 
+            if (Reviews.Count == 0)
+            {
+                Console.WriteLine("No reviews submitted yet.");
+                return;
+            }
 
+            Console.WriteLine("\n====== Submitted Reviews ======");
+            foreach (string request in Reviews)
+            {
+                Console.WriteLine("-" + request);
+            }
 
+        }
 
-
-
+       
 
     }
 
-}
-  
 
+}
