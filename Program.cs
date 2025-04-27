@@ -180,6 +180,7 @@ namespace MiniBankSystem_1
 
             Console.WriteLine($"Account created for :  {name}  with Account Number :  {newAccountNumber}");
 
+            lastAccountNumber = newAccountNumber; // update the last account number
         }
 
         static void Deposit()
