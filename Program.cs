@@ -171,16 +171,18 @@ namespace MiniBankSystem_1
             // Process the request ( create an account)>>>>>>>
 
             //To ensure that every account created receives a unique and sequential number.
+            lastAccountNumber = GetTheLastAccountNumberFromAccountFile(); // get the last account number from the file
 
             int newAccountNumber = lastAccountNumber + 1;
             accountNumbers.Add(newAccountNumber); // add the new account number to the list of account numbers
             accountName.Add(name); // add the name to the list of account names
             accountBalance.Add(0.0); // add the new account number to the list of balances with a default balance of 0
             lastAccountNumber = newAccountNumber; // update the last account number
-
+            
+           
             Console.WriteLine($"Account created for :  {name}  with Account Number :  {newAccountNumber}");
 
-            lastAccountNumber = newAccountNumber; // update the last account number
+            
         }
 
         static void Deposit()
@@ -438,6 +440,24 @@ namespace MiniBankSystem_1
 
 
 
+        }
+
+        static int GetTheLastAccountNumberFromAccountFile()
+        {
+            if (!File.Exists(filePath))
+                return 0;
+
+            string lastLine = File.ReadLines(filePath).LastOrDefault();
+
+            if (string.IsNullOrEmpty(lastLine))
+                return 0;
+
+            string[] parts = lastLine.Split(',');
+
+            if (parts.Length > 0 && int.TryParse(parts[0], out int lastAcc))
+                return lastAcc;
+
+            return 0;
         }
 
 
