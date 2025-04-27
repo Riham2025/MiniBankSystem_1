@@ -13,12 +13,13 @@ namespace MiniBankSystem_1
 
         // Queue to hold account requests
         static Queue<string> accountRequests = new Queue<string>();
+        static Stack<string> Reviews = new Stack<string>();  // Stack to hold reviews/complaints
 
         // List to hold all accounts
         static List<int> accountNumbers = new List<int>();
         static List<string> accountName = new List<string>();
         static List<double> accountBalance = new List<double>();
-        static List<string> Reviews = new List<string>();
+       
 
 
         static int lastAccountNumber; // To keep track of the last account number assigned
@@ -342,6 +343,7 @@ namespace MiniBankSystem_1
             Console.WriteLine("\n====== Submit Review/Complaint ======");
             Console.Write("Enter your review/complaint: ");
             string review = Console.ReadLine();
+            Reviews.Push(review);
             // Save the review to a file or process it as needed
             // For simplicity, we'll just print it to the console
             Console.WriteLine("Review submitted successfully.");
@@ -364,9 +366,30 @@ namespace MiniBankSystem_1
                 Console.WriteLine("-" + request);
             }
 
+
         }
 
-       
+        static void SaveReviewsToFile() //// Save the reviews to a file
+                                        // For simplicity, we'll just print it to the console
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter("reviews.txt"))
+                {
+                    foreach (string review in Reviews)
+                    {
+                        writer.WriteLine(review);
+                    }
+                }
+                Console.WriteLine("Reviews saved to file.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error saving reviews: " + ex.Message);
+            }
+        }
+
+
 
     }
 
