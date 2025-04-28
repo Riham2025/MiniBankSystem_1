@@ -29,7 +29,7 @@ namespace MiniBankSystem_1
         {
             LoadAccountInformationFromFile();
             LoadReviewsFromFile();// Load reviews from file at the start of the program
-
+            lastAccountNumber = GetTheLastAccountNumberFromAccountFile(); // get the last account number from the file
             // main menu 
             bool running = true;
 
@@ -137,9 +137,18 @@ namespace MiniBankSystem_1
             Console.WriteLine("\n====== Create Account ======");
             Console.Write("Enter your name: ");
             string name = Console.ReadLine();
+            while (string.IsNullOrWhiteSpace(name) || name.Any(char.IsDigit)) // check if the name is empty or contains numbers
+            {
+                Console.Write("Invalid name. Name cannot be empty or contain numbers. Please enter your name again: ");
+                name = Console.ReadLine();
+            }
             Console.Write("Enter your National ID: ");
             string nationalID = (Console.ReadLine());
-
+            while (string.IsNullOrWhiteSpace(nationalID) || nationalID.Length != 8 || !nationalID.All(char.IsDigit)) // check if the national ID is empty or not 8 digits or contains non-digit characters
+            {
+                Console.Write("Invalid National ID. It must be exactly 8 digits. Please re-enter: ");
+                nationalID = Console.ReadLine();
+            }
             //create Queue
             string request = $"{name},{nationalID}";
 
@@ -171,7 +180,7 @@ namespace MiniBankSystem_1
             // Process the request ( create an account)>>>>>>>
 
             //To ensure that every account created receives a unique and sequential number.
-            lastAccountNumber = GetTheLastAccountNumberFromAccountFile(); // get the last account number from the file
+          
 
             int newAccountNumber = lastAccountNumber + 1;
             accountNumbers.Add(newAccountNumber); // add the new account number to the list of account numbers
