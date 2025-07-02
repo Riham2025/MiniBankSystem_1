@@ -737,6 +737,22 @@ namespace MiniBankSystem_1
             }
         }
 
+        static void ShowTotalBankBalance()
+        {
+            Console.Clear();
+            Console.WriteLine("\n====== Total Bank Balance ======");
+
+            if (accountBalance.Count == 0)
+            {
+                Console.WriteLine("No accounts available.");
+                return;
+            }
+
+            double total = accountBalance.Sum();   // using System.Linq;
+            Console.WriteLine($"Total Holdings Across All Accounts: {total:C}");
+        }
+
+
 
 
 
