@@ -613,6 +613,44 @@ namespace MiniBankSystem_1
             }
         }
 
+        static void DeleteAccountByNumber()
+        {
+            Console.Clear();
+            Console.WriteLine("\n====== Delete Account ======");
+            Console.Write("Enter the account number to delete: ");
+
+            if (!int.TryParse(Console.ReadLine(), out int accNo))
+            {
+                Console.WriteLine("Invalid number.");
+                return;
+            }
+
+            int index = accountNumbers.IndexOf(accNo);
+            if (index == -1)
+            {
+                Console.WriteLine("Account not found.");
+                return;
+            }
+
+            // Safety prompt
+            Console.Write($"Are you sure you want to delete account {accNo}? (y/n): ");
+            string confirm = Console.ReadLine()?.Trim().ToLower();
+            if (confirm != "y") { Console.WriteLine("Deletion cancelled."); return; }
+
+            // Remove from every parallel list
+            accountNumbers.RemoveAt(index);
+            accountName.RemoveAt(index);
+            accountBalance.RemoveAt(index);
+            accountNationalIDs.RemoveAt(index);
+
+            // Adjust currentAccountIndex if needed
+            if (currentAccountIndex == index) currentAccountIndex = -1;
+            else if (currentAccountIndex > index) currentAccountIndex--;
+
+            Console.WriteLine($"Account {accNo} deleted successfully.");
+        }
+
+
 
 
 
