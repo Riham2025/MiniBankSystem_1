@@ -68,9 +68,6 @@ namespace MiniBankSystem_1
         // ===========User Menu===========
         static void UserMenu()
         {
-            // Require login first
-            if (currentAccountIndex == -1 && !Login())
-                return;                     // user failed / aborted
             bool inUserMenu = true; // to keep the user in the menu until they choose to exit
             while (inUserMenu)
             {
@@ -78,10 +75,7 @@ namespace MiniBankSystem_1
                 Console.Clear();
                 Console.WriteLine("\n====== User Menu ======");
                 Console.WriteLine("1. Create Account");
-                Console.WriteLine("2. Deposit");
-                Console.WriteLine("3. Withdraw");
-                Console.WriteLine("4. Check Balance");
-                Console.WriteLine("5. Submit Review/Complaint");
+                Console.WriteLine("2. Login");
                 Console.WriteLine("0. Back to Main Menu");
                 Console.Write("Select option: ");
                 string userChoice = Console.ReadLine();
@@ -89,10 +83,17 @@ namespace MiniBankSystem_1
                 switch (userChoice)
                 {
                     case "1": CreateAccount(); Console.ReadLine(); break;
-                    case "2": Deposit(); Console.ReadLine(); break;
-                    case "3": Withdraw(); Console.ReadLine(); break;
-                    case "4": CheckBalance(); Console.ReadLine(); break;
-                    case "5": submitReview(); Console.ReadLine(); break;
+                    case "2":
+                        Login();
+                        // Require login first
+                        if (currentAccountIndex == -1 && !Login())
+                        { return; }                // user failed / aborted
+                        else
+                        {
+                            // If login is successful, show user operations menu
+                            UserOperations(); // Call the user operations method to show the user menu
+                        }
+                        break;
                     case "0":
                         inUserMenu = false;
                         Logout();               // end session
@@ -102,7 +103,40 @@ namespace MiniBankSystem_1
             }
         }
 
+        // User operation 
+        static void UserOperations()
+        {
+            // Require login first
+            if (currentAccountIndex == -1 && !Login())
+                return;                     // user failed / aborted
+            bool inUserMenu = true; // to keep the user in the menu until they choose to exit
+            while (inUserMenu)
+            {
 
+                Console.Clear();
+                Console.WriteLine("\n====== User Menu ======");
+                Console.WriteLine("1. Deposit");
+                Console.WriteLine("2. Withdraw");
+                Console.WriteLine("3. Check Balance");
+                Console.WriteLine("4. Submit Review/Complaint");
+                Console.WriteLine("0. Back to Main Menu");
+                Console.Write("Select option: ");
+                string userChoice = Console.ReadLine();
+
+                switch (userChoice)
+                {
+                    case "1": Deposit(); Console.ReadLine(); break;
+                    case "2": Withdraw(); Console.ReadLine(); break;
+                    case "3": CheckBalance(); Console.ReadLine(); break;
+                    case "4": submitReview(); Console.ReadLine(); break;
+                    case "0":
+                        inUserMenu = false;
+                        Logout();               // end session
+                        break;
+                    default: Console.WriteLine("Invalid choice."); break;
+                }
+            }
+        }
 
         // ===========Admin Menu============
 
