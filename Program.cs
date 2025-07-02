@@ -185,6 +185,7 @@ namespace MiniBankSystem_1
           
 
             int newAccountNumber = lastAccountNumber + 1;
+            accountNationalIDs.Add(nationalID);   // NEW: track the ID
             accountNumbers.Add(newAccountNumber); // add the new account number to the list of account numbers
             accountName.Add(name); // add the name to the list of account names
             accountBalance.Add(0.0); // add the new account number to the list of balances with a default balance of 0
