@@ -151,6 +151,7 @@ namespace MiniBankSystem_1
                 Console.WriteLine("2. View Submitted Reviews");
                 Console.WriteLine("3. View All Accounts");
                 Console.WriteLine("4. View Pending Account Requests");
+                Console.WriteLine("5. Search by Name or National ID");
                 Console.WriteLine("0. Back to Main Menu");
                 Console.Write("Select option: ");
                 string adminChoice = Console.ReadLine();
@@ -160,8 +161,10 @@ namespace MiniBankSystem_1
                     case "1": ProcessNextAccountRequest(); Console.ReadLine(); break;
                     case "2": ViewReviews(); Console.ReadLine(); break;
                     case "3": ViewAllAccounts(); Console.ReadLine(); break;
-                    case "4":
-                        ViewPendingRequests();
+                    case "4": ViewPendingRequests(); break;
+                    case "5": SearchAccountByNameOrID(); break;
+
+
                         Console.ReadLine();
                         break;
                     case "0": inAdminMenu = false; break;
