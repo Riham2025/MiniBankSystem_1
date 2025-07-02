@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq.Expressions;
@@ -235,7 +236,7 @@ namespace MiniBankSystem_1
             lastAccountNumber = newAccountNumber; // update the last account number
             
            
-            Console.WriteLine($"Account created for :  {name}  with Account Number :  {newAccountNumber}");
+            Console.WriteLine($"Account created for :  {name}  with Account Number :  {newAccountNumber}  and national ID : {nationalID}");
 
             
         }
@@ -329,14 +330,14 @@ namespace MiniBankSystem_1
                 {
                     for (int i = 0; i < accountNumbers.Count; i++)
                     {
-                        string dataLine = ($"{accountNumbers[i]},{accountName[i]},{accountBalance[i]},{accountNationalIDs[i]}");
+                        string dataLine = $"{accountNumbers[i]},{accountName[i]},{accountBalance[i]},{accountNationalIDs[i]}";
                      
                         writer.WriteLine(dataLine);
                     }
                 }
                 Console.WriteLine("Account information saved to file.");
             }
-
+                    
             catch (Exception ex)
             {
                 Console.WriteLine("Error saving account information: ");
@@ -552,39 +553,57 @@ namespace MiniBankSystem_1
             Console.WriteLine("\n====== Search Account ======");
             Console.Write("Search by (1) Name or (2) National ID: ");
             string choice = Console.ReadLine();
+            bool found = false;
 
             if (choice == "1")
             {
                 Console.Write("Enter Name: ");
                 string name = Console.ReadLine();
-                int index = accountName.FindIndex(n => n.Equals(name, StringComparison.OrdinalIgnoreCase));
+                for (int i = 0; i < accountName.Count; i++)
+                {
+                    if (accountName[i].Equals(name, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Console.WriteLine($"Account Number: {accountNumbers[i]}");
+                        Console.WriteLine($"Balance: {accountBalance[i]}");
+                        Console.WriteLine($"National ID: {accountNationalIDs[i]}"); // Display the National ID
 
-                if (index == -1)
-                {
-                    Console.WriteLine("Account with this name not found.");
+                        found = true;
+                        break; // Exit after finding the first match
+                        
+                    }
+                   
                 }
-                else
+                if (!found)
                 {
-                    Console.WriteLine($"Account Number: {accountNumbers[index]}");
-                    Console.WriteLine($"Balance: {accountBalance[index]}");
+                    Console.WriteLine("Account not found with the given name.");
                 }
+                Console.ReadLine();
+
+
             }
             else if (choice == "2")
             {
                 Console.Write("Enter National ID (8 digits): ");
                 string id = Console.ReadLine();
-                int index = accountNationalIDs.IndexOf(id);
 
-                if (index == -1)
+                for (int i = 0; i < accountNationalIDs.Count; i++)
                 {
-                    Console.WriteLine("National ID not found in approved accounts.");
+                    if (accountNationalIDs[i].Equals(id, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Console.WriteLine($"Account Number: {accountNumbers[i]}");
+                        Console.WriteLine($"Name: {accountName[i]}");
+                        Console.WriteLine($"Balance: {accountBalance[i]}");
+                        found = true;
+                        break; // Exit after finding the first match
+
+                    }
+
                 }
-                else
+                if (!found)
                 {
-                    Console.WriteLine($"Account Number: {accountNumbers[index]}");
-                    Console.WriteLine($"Name: {accountName[index]}");
-                    Console.WriteLine($"Balance: {accountBalance[index]}");
+                    Console.WriteLine("Account not found with the given name.");
                 }
+                Console.ReadLine();
             }
             else
             {
