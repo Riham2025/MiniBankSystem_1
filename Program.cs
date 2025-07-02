@@ -708,6 +708,34 @@ namespace MiniBankSystem_1
             Console.WriteLine($"New Sender Balance: {accountBalance[senderIndex]:C}");
         }
 
+        static void ShowTopRichestCustomers()
+        {
+            Console.Clear();
+            Console.WriteLine("\n====== Top 3 Richest Customers ======");
+
+            if (accountBalance.Count == 0)
+            {
+                Console.WriteLine("No accounts available.");
+                return;
+            }
+
+            // Build a list of anonymous objects (Balance + Index) and sort descending
+            var top = accountBalance
+                        .Select((bal, idx) => new { Balance = bal, Index = idx })
+                        .OrderByDescending(x => x.Balance)
+                        .Take(3)
+                        .ToList();
+
+            int rank = 1;
+            foreach (var item in top)
+            {
+                int i = item.Index;
+                Console.WriteLine($"{rank}. {accountName[i]}  |  Acc #{accountNumbers[i]}  |  Balance: {accountBalance[i]:C}");
+                rank++;
+            }
+        }
+
+
 
 
 
