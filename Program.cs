@@ -156,6 +156,7 @@ namespace MiniBankSystem_1
                 Console.WriteLine("4. View Pending Account Requests");
                 Console.WriteLine("5. Search by Name or National ID");
                 Console.WriteLine("6. Delete Account by Number");
+                Console.WriteLine("7. Show Top 3 Richest Customers");
                 Console.WriteLine("0. Back to Main Menu");
                 Console.Write("Select option: ");
                 string adminChoice = Console.ReadLine();
