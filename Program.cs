@@ -546,6 +546,53 @@ namespace MiniBankSystem_1
             currentAccountIndex = -1;
         }
 
+        static void SearchAccountByNameOrID()
+        {
+            Console.Clear();
+            Console.WriteLine("\n====== Search Account ======");
+            Console.Write("Search by (1) Name or (2) National ID: ");
+            string choice = Console.ReadLine();
+
+            if (choice == "1")
+            {
+                Console.Write("Enter Name: ");
+                string name = Console.ReadLine();
+                int index = accountName.FindIndex(n => n.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+                if (index == -1)
+                {
+                    Console.WriteLine("Account with this name not found.");
+                }
+                else
+                {
+                    Console.WriteLine($"Account Number: {accountNumbers[index]}");
+                    Console.WriteLine($"Balance: {accountBalance[index]}");
+                }
+            }
+            else if (choice == "2")
+            {
+                Console.Write("Enter National ID (8 digits): ");
+                string id = Console.ReadLine();
+                int index = accountNationalIDs.IndexOf(id);
+
+                if (index == -1)
+                {
+                    Console.WriteLine("National ID not found in approved accounts.");
+                }
+                else
+                {
+                    Console.WriteLine($"Account Number: {accountNumbers[index]}");
+                    Console.WriteLine($"Name: {accountName[index]}");
+                    Console.WriteLine($"Balance: {accountBalance[index]}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid selection.");
+            }
+        }
+
+
 
 
 
