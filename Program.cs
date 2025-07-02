@@ -190,31 +190,54 @@ namespace MiniBankSystem_1
         static void CreateAccount()
 
         {
-            Console.Clear();
-            Console.WriteLine("\n====== Create Account ======");
-            Console.Write("Enter your name: ");
-            string name = Console.ReadLine();
-            while (string.IsNullOrWhiteSpace(name) || name.Any(char.IsDigit)) // check if the name is empty or contains numbers
-            {
-                Console.Write("Invalid name. Name cannot be empty or contain numbers. Please enter your name again: ");
-                name = Console.ReadLine();
-            }
-            Console.Write("Enter your National ID: ");
-            string nationalID = (Console.ReadLine());
-            while (string.IsNullOrWhiteSpace(nationalID) || nationalID.Length != 8 || !nationalID.All(char.IsDigit)) // check if the national ID is empty or not 8 digits or contains non-digit characters
-            {
-                Console.Write("Invalid National ID. It must be exactly 8 digits. Please re-enter: ");
-                nationalID = Console.ReadLine();
-            }
-            //create Queue
-            string request = $"{name},{nationalID}";
+           
+            
+                Console.Clear();
+                Console.WriteLine("\n====== Create Account ======");
 
-            // add new entry to the queue
-            accountRequests.Enqueue(request);
+                // ► 1. Name input & validation
+                Console.Write("Enter your name: ");
+                string name = Console.ReadLine();
+                while (string.IsNullOrWhiteSpace(name) || name.Any(char.IsDigit))
+                {
+                    Console.Write("Invalid name. Please re-enter: ");
+                    name = Console.ReadLine();
+                }
 
-            Console.WriteLine("Account request submitted successfully.");
+                // ► 2. National-ID input & validation
+                Console.Write("Enter your National ID (8 digits): ");
+                string nationalID = Console.ReadLine();
+                while (string.IsNullOrWhiteSpace(nationalID) ||
+                       nationalID.Length != 8 ||
+                       !nationalID.All(char.IsDigit))
+                {
+                    Console.Write("Invalid ID. It must be exactly 8 digits. Re-enter: ");
+                    nationalID = Console.ReadLine();
+                }
 
+                // ► 3. DUPLICATE-CHECK  
+                // 3a) already approved?
+                if (accountNationalIDs.Contains(nationalID))
+                {
+                    Console.WriteLine(" An account with this National ID already exists.");
+                    Console.ReadKey();
+                    return;
+                }
 
+                // 3b) already pending in the queue?
+                bool pending = accountRequests.Any(r => r.Split(',')[1] == nationalID);
+                if (pending)
+                {
+                    Console.WriteLine("  A request with this National ID is already in the queue.");
+                    Console.ReadKey();
+                    return;
+                }
+
+                // ► 4. Enqueue the NEW request
+                accountRequests.Enqueue($"{name},{nationalID}");
+                Console.WriteLine(" Account request submitted successfully.");
+                Console.ReadKey();
+            
 
 
         }
