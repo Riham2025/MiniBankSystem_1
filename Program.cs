@@ -153,6 +153,7 @@ namespace MiniBankSystem_1
                 Console.WriteLine("3. View All Accounts");
                 Console.WriteLine("4. View Pending Account Requests");
                 Console.WriteLine("5. Search by Name or National ID");
+                Console.WriteLine("6. Delete Account by Number");
                 Console.WriteLine("0. Back to Main Menu");
                 Console.Write("Select option: ");
                 string adminChoice = Console.ReadLine();
@@ -164,6 +165,7 @@ namespace MiniBankSystem_1
                     case "3": ViewAllAccounts(); Console.ReadLine(); break;
                     case "4": ViewPendingRequests(); break;
                     case "5": SearchAccountByNameOrID(); break;
+                    case "6": DeleteAccountByNumber(); Console.ReadLine(); break;
 
 
                         Console.ReadLine();
