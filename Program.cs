@@ -278,18 +278,22 @@ namespace MiniBankSystem_1
 
         static void SaveAccountInformationToFile()
         {
+
             try
             {
+
                 using (StreamWriter writer = new StreamWriter(filePath))
                 {
                     for (int i = 0; i < accountNumbers.Count; i++)
                     {
-                        string dataLine = ($"{accountNumbers[i]},{accountName[i]},{accountBalance[i]}");
+                        string dataLine = ($"{accountNumbers[i]},{accountName[i]},{accountBalance[i]},{accountNationalIDs[i]}");
+                     
                         writer.WriteLine(dataLine);
                     }
                 }
                 Console.WriteLine("Account information saved to file.");
             }
+
             catch (Exception ex)
             {
                 Console.WriteLine("Error saving account information: ");
