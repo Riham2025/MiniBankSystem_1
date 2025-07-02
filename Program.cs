@@ -21,6 +21,8 @@ namespace MiniBankSystem_1
         static List<int> accountNumbers = new List<int>();
         static List<string> accountName = new List<string>();
         static List<double> accountBalance = new List<double>();
+        static List<string> accountNationalIDs = new List<string>();   // NEW
+
 
 
 
