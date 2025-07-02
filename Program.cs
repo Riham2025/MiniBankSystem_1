@@ -169,6 +169,7 @@ namespace MiniBankSystem_1
                     case "4": ViewPendingRequests(); break;
                     case "5": SearchAccountByNameOrID(); break;
                     case "6": DeleteAccountByNumber(); Console.ReadLine(); break;
+                    case "7": ShowTopRichestCustomers(); Console.ReadLine(); break;
 
 
                         Console.ReadLine();
