@@ -68,6 +68,9 @@ namespace MiniBankSystem_1
         // ===========User Menu===========
         static void UserMenu()
         {
+            // Require login first
+            if (currentAccountIndex == -1 && !Login())
+                return;                     // user failed / aborted
             bool inUserMenu = true; // to keep the user in the menu until they choose to exit
             while (inUserMenu)
             {
@@ -92,6 +95,7 @@ namespace MiniBankSystem_1
                     case "5": submitReview(); Console.ReadLine(); break;
                     case "0":
                         inUserMenu = false;
+                        Logout();               // end session
                         break;
                     default: Console.WriteLine("Invalid choice."); break;
                 }
