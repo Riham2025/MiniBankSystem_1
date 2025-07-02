@@ -652,6 +652,61 @@ namespace MiniBankSystem_1
             Console.WriteLine($"Account {accNo} deleted successfully.");
         }
 
+        static void TransferFunds()
+        {
+            // Sender must already be logged-in
+            if (currentAccountIndex == -1 && !Login())
+                return;
+
+            int senderIndex = currentAccountIndex;
+            int senderAcc = accountNumbers[senderIndex];
+
+            Console.Clear();
+            Console.WriteLine("\n====== Transfer Funds ======");
+            Console.WriteLine($"Sender Account: {senderAcc}  |  Balance: {accountBalance[senderIndex]:C}");
+            Console.Write("Enter recipient account number: ");
+
+            if (!int.TryParse(Console.ReadLine(), out int recipientAcc))
+            {
+                Console.WriteLine("Invalid account number.");
+                return;
+            }
+
+            int recipIndex = accountNumbers.IndexOf(recipientAcc);
+            if (recipIndex == -1)
+            {
+                Console.WriteLine("Recipient account not found.");
+                return;
+            }
+
+            if (recipIndex == senderIndex)
+            {
+                Console.WriteLine("You cannot transfer to the same account.");
+                return;
+            }
+
+            Console.Write("Enter amount to transfer: ");
+            if (!double.TryParse(Console.ReadLine(), out double amount) || amount <= 0)
+            {
+                Console.WriteLine("Invalid amount.");
+                return;
+            }
+
+            if (accountBalance[senderIndex] < amount)
+            {
+                Console.WriteLine("Insufficient balance. Transfer aborted.");
+                return;
+            }
+
+            // --- Perform transfer ---
+            accountBalance[senderIndex] -= amount;
+            accountBalance[recipIndex] += amount;
+
+            Console.WriteLine($"\n✅  {amount:C} transferred from {senderAcc} to {recipientAcc}.");
+            Console.WriteLine($"New Sender Balance: {accountBalance[senderIndex]:C}");
+        }
+
+
 
 
 
