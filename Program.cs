@@ -754,6 +754,46 @@ namespace MiniBankSystem_1
             Console.WriteLine($"Total Holdings Across All Accounts: {total:C}");
         }
 
+        static void ExportAccountsToCsv()
+        {
+            const string exportPath = "SafeBank_Accounts_Export.csv";
+            Console.Clear();
+            Console.WriteLine("\n====== Export Accounts to CSV ======");
+
+            if (accountNumbers.Count == 0)
+            {
+                Console.WriteLine("No accounts to export.");
+                return;
+            }
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(exportPath, false)) // overwrite each time
+                {
+                    // Header row
+                    writer.WriteLine("AccountNumber,Name,Balance,NationalID");
+
+                    // Data rows
+                    for (int i = 0; i < accountNumbers.Count; i++)
+                    {
+                        // Escape commas in names if needed by wrapping with quotes
+                        string safeName = accountName[i].Contains(',')
+                                          ? $"\"{accountName[i]}\""
+                                          : accountName[i];
+
+                        writer.WriteLine($"{accountNumbers[i]},{safeName},{accountBalance[i]},{accountNationalIDs[i]}");
+                    }
+                }
+
+                Console.WriteLine($" Accounts exported to \"{exportPath}\".");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(" Error exporting accounts: " + ex.Message);
+            }
+        }
+
+
 
 
 
