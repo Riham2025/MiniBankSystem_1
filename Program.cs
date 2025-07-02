@@ -173,6 +173,7 @@ namespace MiniBankSystem_1
                     case "6": DeleteAccountByNumber(); Console.ReadLine(); break;
                     case "7": ShowTopRichestCustomers(); Console.ReadLine(); break;
                     case "8": ShowTotalBankBalance(); Console.ReadLine(); break;
+                    case "9": ExportAccountsToCsv(); Console.ReadLine(); break;
 
 
                         Console.ReadLine();
