@@ -120,6 +120,7 @@ namespace MiniBankSystem_1
                 Console.WriteLine("2. Withdraw");
                 Console.WriteLine("3. Check Balance");
                 Console.WriteLine("4. Submit Review/Complaint");
+                Console.WriteLine("5. Transfer Funds");
                 Console.WriteLine("0. Back to Main Menu");
                 Console.Write("Select option: ");
                 string userChoice = Console.ReadLine();
