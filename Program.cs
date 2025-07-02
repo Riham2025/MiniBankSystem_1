@@ -317,6 +317,7 @@ namespace MiniBankSystem_1
                             accountNumbers.Add(accountNumber);
                             accountName.Add(data[1]);
                             accountBalance.Add(double.Parse(data[2]));
+                            accountNationalIDs.Add(data[3]); // NEW: load the national ID
                         }
                     }
                     Console.WriteLine("Account information loaded from file.");
