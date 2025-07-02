@@ -27,6 +27,8 @@ namespace MiniBankSystem_1
 
 
         static int lastAccountNumber; // To keep track of the last account number assigned
+        static int currentAccountIndex = -1;   // −1 means “not logged in”
+
         static void Main()
         {
             LoadAccountInformationFromFile();
