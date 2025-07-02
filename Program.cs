@@ -702,7 +702,7 @@ namespace MiniBankSystem_1
             accountBalance[senderIndex] -= amount;
             accountBalance[recipIndex] += amount;
 
-            Console.WriteLine($"\n✅  {amount:C} transferred from {senderAcc} to {recipientAcc}.");
+            Console.WriteLine($"\n  {amount:C} transferred from {senderAcc} to {recipientAcc}.");
             Console.WriteLine($"New Sender Balance: {accountBalance[senderIndex]:C}");
         }
 
