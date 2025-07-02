@@ -819,6 +819,34 @@ namespace MiniBankSystem_1
             }
         }
 
+        static void UndoLastComplaint()
+        {
+            Console.Clear();
+            Console.WriteLine("\n====== Undo Last Complaint ======");
+
+            if (Reviews.Count == 0)
+            {
+                Console.WriteLine("There are no complaints to undo.");
+                return;
+            }
+
+            Console.WriteLine("Most recent complaint:");
+            Console.WriteLine($"\"{Reviews.Peek()}\"");
+            Console.Write("Remove it? (y/n): ");
+            string confirm = Console.ReadLine()?.Trim().ToLower();
+
+            if (confirm == "y")
+            {
+                Reviews.Pop();
+                Console.WriteLine(" Last complaint removed.");
+            }
+            else
+            {
+                Console.WriteLine(" Operation cancelled. Complaint kept.");
+            }
+        }
+
+
 
 
 
