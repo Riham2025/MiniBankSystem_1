@@ -500,6 +500,12 @@ namespace MiniBankSystem_1
             return true;
         }
 
+        static void Logout()
+        {
+            currentAccountIndex = -1;
+        }
+
+
 
 
     }
