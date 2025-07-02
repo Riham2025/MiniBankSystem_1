@@ -479,6 +479,28 @@ namespace MiniBankSystem_1
             return 0;
         }
 
+        static bool Login()
+        {
+            Console.Clear();
+            Console.WriteLine("====== Login ======");
+            Console.Write("Enter your National ID (8 digits): ");
+            string id = Console.ReadLine()?.Trim();
+
+            int idx = accountNationalIDs.IndexOf(id);
+            if (idx == -1)
+            {
+                Console.WriteLine(" National ID not found or account not yet approved.");
+                Console.ReadKey();
+                return false;
+            }
+
+            currentAccountIndex = idx;
+            Console.WriteLine($"Welcome, {accountName[idx]}!");   // greet user
+            Console.ReadKey();
+            return true;
+        }
+
+
 
     }
 
