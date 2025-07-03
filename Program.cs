@@ -295,6 +295,10 @@ namespace MiniBankSystem_1
                 accountBalance[index] += amount; // add the amount to the account balance
                 Console.WriteLine($"Deposited {amount} to account number {accountNumbers[index]}.");
 
+                accountBalance[index] += amount;      // update
+                PrintReceipt("DEPOSIT", amount, accountNumbers[index], accountBalance[index]);
+
+
             }
             catch (FormatException)
             {
