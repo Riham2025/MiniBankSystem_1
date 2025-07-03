@@ -280,14 +280,18 @@ namespace MiniBankSystem_1
             }
             // Dequeue the next request from the queue(request)
             string request = accountRequests.Dequeue();
-            string[] strings = request.Split(','); // split the string dpending on the ,
-            string name = strings[0]; // save the name.
-            string nationalID = strings[1]; // save the national ID
+            string[] parts = request.Split(','); // split the string 
+            string name = parts[0]; // save the name.
+            string nationalID = parts[1]; // save the national ID
+            string hash = parts[2];     // hash 
+
+            accountPasswordHashes.Add(hash);  
+ 
 
             // Process the request ( create an account)>>>>>>>
 
             //To ensure that every account created receives a unique and sequential number.
-          
+
 
             int newAccountNumber = lastAccountNumber + 1;
             accountNationalIDs.Add(nationalID);   // NEW: track the ID
@@ -398,8 +402,9 @@ namespace MiniBankSystem_1
                 {
                     for (int i = 0; i < accountNumbers.Count; i++)
                     {
-                        string dataLine = $"{accountNumbers[i]},{accountName[i]},{accountBalance[i]},{accountNationalIDs[i]}";
-                     
+                        string dataLine = $"{accountNumbers[i]},{accountName[i]},{accountBalance[i]}," + $"{accountNationalIDs[i]},{accountPasswordHashes[i]}";    // secure
+
+
                         writer.WriteLine(dataLine);
                     }
                 }
