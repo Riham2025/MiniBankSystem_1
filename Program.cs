@@ -726,6 +726,8 @@ namespace MiniBankSystem_1
             accountName.RemoveAt(index);
             accountBalance.RemoveAt(index);
             accountNationalIDs.RemoveAt(index);
+            accountPasswordHashes.RemoveAt(index);   // Secure
+
 
             // Adjust currentAccountIndex if needed
             if (currentAccountIndex == index) currentAccountIndex = -1;
