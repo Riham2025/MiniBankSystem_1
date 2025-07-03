@@ -915,8 +915,27 @@ namespace MiniBankSystem_1
         }
 
         //   Read password masked with '*'
-       
 
+        static string ReadPasswordMasked()
+        {
+            StringBuilder sb = new StringBuilder();
+            ConsoleKeyInfo key;
+            while ((key = Console.ReadKey(intercept: true)).Key != ConsoleKey.Enter)
+            {
+                if (key.Key == ConsoleKey.Backspace && sb.Length > 0)
+                {
+                    sb.Length--;                         // remove last
+                    Console.Write("\b \b");              // erase star
+                }
+                else if (!char.IsControl(key.KeyChar))
+                {
+                    sb.Append(key.KeyChar);
+                    Console.Write('*');
+                }
+            }
+            Console.WriteLine();
+            return sb.ToString();
+        }
 
 
 
