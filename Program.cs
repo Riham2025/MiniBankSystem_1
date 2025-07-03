@@ -14,10 +14,23 @@ using System.Text;                    //  string > bytes
 
 namespace MiniBankSystem_1
 {
+
+    struct Tx          // simple record
+    {
+        public int Acc;
+        public DateTime When;
+        public string Kind;   // DEPOSIT / WITHDRAW / TRANSFER-IN / TRANSFER-OUT
+        public double Amount;
+        public double Balance;
+    }
     internal class Program
     {
         // File path 
         const string filePath = "accountInfo.txt";
+        const string transFile = "transactions.txt";
+
+
+       
 
 
         // Queue to hold account requests
@@ -29,6 +42,7 @@ namespace MiniBankSystem_1
         static List<string> accountName = new List<string>();
         static List<double> accountBalance = new List<double>();
         static List<string> accountNationalIDs = new List<string>();   // NEW
+        static List<Tx> txLog = new List<Tx>();
 
         //------Part 2
         static List<string> accountPasswordHashes = new List<string>();   //  stores SHA-256 hex
@@ -132,6 +146,7 @@ namespace MiniBankSystem_1
                 Console.WriteLine("4. Submit Review/Complaint");
                 Console.WriteLine("5. Transfer Funds");
                 Console.WriteLine("6. Undo Last Complaint");
+                Console.WriteLine("7. Request Monthly Statement");
                 Console.WriteLine("0. Back to Main Menu");
                 Console.Write("Select option: ");
                 string userChoice = Console.ReadLine();
@@ -144,6 +159,7 @@ namespace MiniBankSystem_1
                     case "4": submitReview(); Console.ReadLine(); break;
                     case "5": TransferFunds(); Console.ReadLine(); break;
                     case "6": UndoLastComplaint(); Console.ReadLine(); break;
+                    case "7": MonthlyStatement(); Console.ReadLine(); break;
                     case "0":
                         inUserMenu = false;
                         Logout();               // end session
@@ -325,6 +341,8 @@ namespace MiniBankSystem_1
                 
 
                 accountBalance[index] += amount;      // update
+                LogTx(accountNumbers[index], "DEPOSIT", amount, accountBalance[index]);   // for statement
+
                 PrintReceipt("DEPOSIT", amount, accountNumbers[index], accountBalance[index]);
 
 
@@ -383,6 +401,8 @@ namespace MiniBankSystem_1
                 accountBalance[index] -= amount; // subtract the amount from the account balance
                 
                 accountBalance[index] -= amount;      // update
+                LogTx(accountNumbers[index], "WITHDRAW", amount, accountBalance[index]);  // for Statemen
+
                 PrintReceipt("WITHDRAW", amount, accountNumbers[index], accountBalance[index]);
 
             }
@@ -786,6 +806,9 @@ namespace MiniBankSystem_1
             accountBalance[senderIndex] -= amount;
             accountBalance[recipIndex] += amount;
 
+            LogTx(senderAcc, "TRANSFER-OUT", amount, accountBalance[senderIndex]);
+            LogTx(recipientAcc, "TRANSFER-IN", amount, accountBalance[recipIndex]);
+
             Console.WriteLine($"\n  {amount:C} transferred from {senderAcc} to {recipientAcc}.");
             Console.WriteLine($"New Sender Balance: {accountBalance[senderIndex]:C}");
         }
@@ -971,6 +994,37 @@ namespace MiniBankSystem_1
             }
             Console.WriteLine();
             return sb.ToString();
+        }
+
+        // ─── helper to append a log entry + file line ───
+        static void LogTx(int acc, string kind, double amt, double bal)
+        {
+            var tx = new Tx { Acc = acc, When = DateTime.Now, Kind = kind, Amount = amt, Balance = bal };
+            txLog.Add(tx);
+
+            // CSV: acc,iso-datetime,kind,amount,balance
+            string line = $"{acc},{tx.When:O},{kind},{amt},{bal}";
+            File.AppendAllText(transFile, line + Environment.NewLine);
+        }
+
+        // ─── load the file on startup ───
+        static void LoadTransactions()
+        {
+            if (!File.Exists(transFile)) return;
+            foreach (var line in File.ReadAllLines(transFile))
+            {
+                var p = line.Split(',');
+                if (p.Length != 5) continue;   
+
+                txLog.Add(new Tx
+                {
+                    Acc = int.Parse(p[0]),
+                    When = DateTime.Parse(p[1], null, System.Globalization.DateTimeStyles.RoundtripKind),
+                    Kind = p[2],
+                    Amount = double.Parse(p[3]),
+                    Balance = double.Parse(p[4])
+                });
+            }
         }
 
 
