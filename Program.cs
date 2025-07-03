@@ -849,7 +849,7 @@ namespace MiniBankSystem_1
                 using (StreamWriter writer = new StreamWriter(exportPath, false)) // overwrite each time
                 {
                     // Header row
-                    writer.WriteLine("AccountNumber,Name,Balance,NationalID");
+                    writer.WriteLine("AccountNumber,Name,Balance,NationalID,PasswordHash");
 
                     // Data rows
                     for (int i = 0; i < accountNumbers.Count; i++)
