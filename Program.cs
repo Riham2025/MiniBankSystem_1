@@ -7,6 +7,11 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Linq;   // needed for .Any()
 
+//-----Seconde part 
+using System.Security.Cryptography;   //  hashing
+using System.Text;                    //  string > bytes
+
+
 namespace MiniBankSystem_1
 {
     internal class Program
