@@ -1027,6 +1027,58 @@ namespace MiniBankSystem_1
             }
         }
 
+        // ───────────────────────────────────────────────────────────────
+        static void MonthlyStatement()
+        {
+            if (currentAccountIndex == -1) { Console.WriteLine("Please login first."); return; }
+
+            int acc = accountNumbers[currentAccountIndex];
+
+            Console.Write("\nEnter statement month (1-12): ");
+            if (!int.TryParse(Console.ReadLine(), out int m) || m < 1 || m > 12)
+            {
+                Console.WriteLine("Bad month."); return;
+            }
+            Console.Write("Enter statement year (e.g. 2025): ");
+            if (!int.TryParse(Console.ReadLine(), out int y) || y < 2000 || y > 2100)
+            {
+                Console.WriteLine("Bad year."); return;
+            }
+
+            // ― filter log
+            var list = txLog.Where(t => t.Acc == acc && t.When.Month == m && t.When.Year == y)
+                            .OrderBy(t => t.When)
+                            .ToList();
+
+            if (list.Count == 0)
+            {
+                Console.WriteLine("No transactions for that period.");
+                return;
+            }
+
+            string heading = $"Statement for Account #{acc} — {y}-{m:00}";
+            Console.WriteLine("\n" + heading);
+            Console.WriteLine(new string('-', heading.Length));
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(heading);
+            sb.AppendLine("Date & Time          Type          Amount       Balance");
+            sb.AppendLine("--------------------------------------------------------");
+
+            foreach (var t in list)
+            {
+                string line = $"{t.When:yyyy-MM-dd HH:mm}  {t.Kind,-12}  {t.Amount,10:C}   {t.Balance,10:C}";
+                Console.WriteLine(line);
+                sb.AppendLine(line);
+            }
+
+            // ― save file
+            string file = $"Statement_Acc{acc}_{y}-{m:00}.txt";
+            File.WriteAllText(file, sb.ToString());
+            Console.WriteLine($"\nStatement saved to \"{file}\"");
+        }
+
+
 
 
     }
