@@ -352,7 +352,10 @@ namespace MiniBankSystem_1
                     return;
                 }
                 accountBalance[index] -= amount; // subtract the amount from the account balance
-                Console.WriteLine($"Withdrew {amount} from account number {accountNumbers[index]}.");
+                
+                accountBalance[index] -= amount;      // update
+                PrintReceipt("WITHDRAW", amount, accountNumbers[index], accountBalance[index]);
+
             }
             catch (FormatException)
             {
