@@ -244,11 +244,24 @@ namespace MiniBankSystem_1
                     return;
                 }
 
-                // ► 4. Enqueue the NEW request
-                accountRequests.Enqueue($"{name},{nationalID}");
-                Console.WriteLine(" Account request submitted successfully.");
+            // ► 4. Password input
+            Console.Write("Set account password: ");
+            string pw1 = ReadPasswordMasked();
+            Console.Write("Confirm password      : ");
+            string pw2 = ReadPasswordMasked();
+
+            if (pw1 != pw2 || pw1.Length < 4)
+            {
+                Console.WriteLine(" Passwords don’t match or too short (min 4).");
                 Console.ReadKey();
-            
+                return;
+            }
+
+            string hash = HashPassword(pw1);
+
+           
+
+
 
 
         }
@@ -903,7 +916,7 @@ namespace MiniBankSystem_1
 
         //-------------- ((Mini Bank System Project ( Version 2.0 ) ))-----------------------
 
-        // ───────────────────────────────────────────────────────────────
+        
         //   SHA-256 hashing > 64-char lowercase hex string
         static string HashPassword(string plain)
         {
