@@ -431,10 +431,13 @@ namespace MiniBankSystem_1
                         {
                             string[] data = line.Split(',');
                             int accountNumber = Convert.ToInt32(data[0]);
-                            accountNumbers.Add(accountNumber);
+                            accountNumbers.Add(int.Parse(data[0]));
                             accountName.Add(data[1]);
                             accountBalance.Add(double.Parse(data[2]));
-                            accountNationalIDs.Add(data[3]); // NEW: load the national ID
+                            accountNationalIDs.Add(data[3]);   // NEW: load the national ID
+                            accountPasswordHashes.Add(data[4]);          //To secure
+
+                            
                         }
                     }
                     Console.WriteLine("Account information loaded from file.");
