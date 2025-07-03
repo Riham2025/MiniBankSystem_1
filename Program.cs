@@ -259,8 +259,11 @@ namespace MiniBankSystem_1
 
             string hash = HashPassword(pw1);
 
-           
 
+            // ► 5. Enqueue request (include hash)
+            accountRequests.Enqueue($"{name},{nationalID},{hash}");
+            Console.WriteLine(" Account request submitted successfully.");
+            Console.ReadKey();
 
 
 
