@@ -903,6 +903,20 @@ namespace MiniBankSystem_1
 
         //-------------- ((Mini Bank System Project ( Version 2.0 ) ))-----------------------
 
+        // ───────────────────────────────────────────────────────────────
+        //   SHA-256 hashing > 64-char lowercase hex string
+        static string HashPassword(string plain)
+        {
+            using (SHA256 sha = SHA256.Create())
+            {
+                byte[] bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(plain));
+                return BitConverter.ToString(bytes).Replace("-", "").ToLower();
+            }
+        }
+
+        //   Read password masked with '*'
+       
+
 
 
 
