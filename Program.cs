@@ -601,21 +601,31 @@ namespace MiniBankSystem_1
         {
             Console.Clear();
             Console.WriteLine("====== Login ======");
-            Console.Write("Enter your National ID (8 digits): ");
+            Console.Write("National ID (8 digits): ");
             string id = Console.ReadLine()?.Trim();
 
             int idx = accountNationalIDs.IndexOf(id);
             if (idx == -1)
             {
-                Console.WriteLine(" National ID not found or account not yet approved.");
+                Console.WriteLine(" ID not found or not yet approved.");
+                Console.ReadKey();
+                return false;
+            }
+
+            Console.Write("Password: ");
+            string pw = ReadPasswordMasked();
+            if (accountPasswordHashes[idx] != HashPassword(pw))
+            {
+                Console.WriteLine(" Incorrect password.");
                 Console.ReadKey();
                 return false;
             }
 
             currentAccountIndex = idx;
-            Console.WriteLine($"Welcome, {accountName[idx]}!");   // greet user
+            Console.WriteLine($"Welcome, {accountName[idx]}!");
             Console.ReadKey();
             return true;
+
         }
 
         static void Logout()
