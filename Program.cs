@@ -847,10 +847,40 @@ namespace MiniBankSystem_1
         }
 
 
+        static void PrintReceipt(string txType, double amount, int accNum, double newBalance)
+        {
+            // Timestamp (local time)
+            DateTime now = DateTime.Now;
+            string stamp = now.ToString("yyyy-MM-dd HH:mm:ss");
+            string fileTag = now.ToString("yyyyMMdd_HHmmss");          // for filename
 
+            // Pretty-printed receipt text
+            string receipt =
+              $@"----------------------------------------
+               SAFE-BANK OFFICIAL RECEIPT
+               ----------------------------------------
+               Date / Time : {stamp}
+               Transaction : {txType}
+               Account No. : {accNum}
+               Amount      : {amount:C}
+               New Balance : {newBalance:C}
+               ----------------------------------------";
 
+            // -- Display on screen
+            Console.WriteLine(receipt);
 
-
+            // -- Persist to file
+            string fileName = $"Receipt_{accNum}_{fileTag}.txt";
+            try
+            {
+                File.WriteAllText(fileName, receipt);
+                Console.WriteLine($"(Saved to {fileName})");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(" Could not write receipt file: " + ex.Message);
+            }
+        }
 
 
 
