@@ -53,6 +53,10 @@ namespace MiniBankSystem_1
         //------Part 2
         static List<string> accountPasswordHashes = new List<string>();   //  stores SHA-256 hex
 
+        //  User-feedback ratings (1–5) 
+        static readonly List<int> feedbackRatings = new List<int>();
+
+
 
         static int lastAccountNumber; // To keep track of the last account number assigned
         static int currentAccountIndex = -1;   // −1 means “not logged in”
