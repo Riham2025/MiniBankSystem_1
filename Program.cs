@@ -149,6 +149,7 @@ namespace MiniBankSystem_1
                 Console.WriteLine("7. Request Monthly Statement");
                 Console.WriteLine("8. Request Loan");
                 Console.WriteLine("9. Show Last N Transactions");
+                Console.WriteLine("10. Show Transactions After Date");
                 Console.WriteLine("0. Back to Main Menu");
                 Console.Write("Select option: ");
                 string userChoice = Console.ReadLine();
@@ -163,6 +164,7 @@ namespace MiniBankSystem_1
                     case "6": UndoLastComplaint(); Console.ReadLine(); break;
                     case "7": MonthlyStatement(); Console.ReadLine(); break;
                     case "8": RequestLoan(); Console.ReadLine(); break;
+
                     case "0":
                         inUserMenu = false;
                         Logout();               // end session
