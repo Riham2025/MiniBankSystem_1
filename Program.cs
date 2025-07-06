@@ -45,13 +45,10 @@ namespace MiniBankSystem_1
         static List<Tx> txLog = new List<Tx>();
         // List for loan
         static List<bool> hasActiveLoan = new List<bool>();  // track if user has a loan
-
+        static List<(double Amount, double Interest)> loanRequests = new List<(double, double)>(); // one per account
 
         //------Part 2
         static List<string> accountPasswordHashes = new List<string>();   //  stores SHA-256 hex
-
-
-
 
 
         static int lastAccountNumber; // To keep track of the last account number assigned
