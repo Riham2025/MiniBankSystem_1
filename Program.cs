@@ -30,7 +30,10 @@ namespace MiniBankSystem_1
         const string transFile = "transactions.txt";
 
 
-       
+        // --- Admin credentials -------------------------------------------------
+        const string ADMIN_ID = "admin";
+        const string ADMIN_PASS_HASH = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9"; // ← HashPassword("admin123")
+
 
 
         // Queue to hold account requests
