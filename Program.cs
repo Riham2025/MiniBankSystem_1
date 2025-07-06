@@ -1080,6 +1080,41 @@ namespace MiniBankSystem_1
             Console.WriteLine($"\nStatement saved to \"{file}\"");
         }
 
+        static void RequestLoan()
+        {
+            if (currentAccountIndex == -1) { Console.WriteLine("Login required."); return; }
+
+            if (hasActiveLoan[currentAccountIndex])
+            {
+                Console.WriteLine("You already have an active loan.");
+                return;
+            }
+
+            if (accountBalance[currentAccountIndex] < 5000)
+            {
+                Console.WriteLine("You must have at least 5000 balance to request a loan.");
+                return;
+            }
+
+            Console.Write("Enter loan amount: ");
+            if (!double.TryParse(Console.ReadLine(), out double amount) || amount <= 0)
+            {
+                Console.WriteLine("Invalid amount.");
+                return;
+            }
+
+            Console.Write("Enter interest rate (e.g. 5 for 5%): ");
+            if (!double.TryParse(Console.ReadLine(), out double rate) || rate <= 0)
+            {
+                Console.WriteLine("Invalid interest rate.");
+                return;
+            }
+
+            loanRequests[currentAccountIndex] = (amount, rate);
+            Console.WriteLine("Loan request submitted.");
+        }
+
+
 
 
 
