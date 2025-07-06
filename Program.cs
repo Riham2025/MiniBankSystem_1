@@ -1116,6 +1116,45 @@ namespace MiniBankSystem_1
             Console.WriteLine("Loan request submitted.");
         }
 
+        static void ApproveRejectLoans()
+        {
+            Console.Clear();
+            Console.WriteLine("\n====== Loan Approval ======");
+
+            bool found = false;
+            for (int i = 0; i < loanRequests.Count; i++)
+            {
+                if (loanRequests[i].Amount > 0 && !hasActiveLoan[i])
+                {
+                    found = true;
+                    Console.WriteLine($"Account #{accountNumbers[i]} - Name: {accountName[i]}");
+                    Console.WriteLine($"Requested: {loanRequests[i].Amount:C} at {loanRequests[i].Interest}%");
+
+                    Console.Write("Approve (a) / Reject (r): ");
+                    string choice = Console.ReadLine().ToLower();
+
+                    if (choice == "a")
+                    {
+                        accountBalance[i] += loanRequests[i].Amount;
+                        hasActiveLoan[i] = true;
+                        Console.WriteLine("Loan approved and amount added to balance.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Loan request rejected.");
+                    }
+
+                    loanRequests[i] = (0, 0); // reset
+                }
+            }
+
+            if (!found)
+            {
+                Console.WriteLine("No pending loan requests.");
+            }
+        }
+
+
 
 
 
