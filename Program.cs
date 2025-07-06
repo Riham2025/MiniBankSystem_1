@@ -44,8 +44,7 @@ namespace MiniBankSystem_1
         static List<string> accountNationalIDs = new List<string>();   // NEW
         static List<Tx> txLog = new List<Tx>();
         // List for loan
-        static List<bool> hasActiveLoan = new List<bool>();         // track if user has a loan
-        static List<(double Amount, double Interest)> loanRequests = new List<(double, double)>(); // one per account
+        static List<bool> hasActiveLoan = new List<bool>();  // track if user has a loan
 
 
         //------Part 2
