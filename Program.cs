@@ -429,6 +429,7 @@ namespace MiniBankSystem_1
                 LogTx(accountNumbers[index], "WITHDRAW", amount, accountBalance[index]);  // for Statemen
 
                 PrintReceipt("WITHDRAW", amount, accountNumbers[index], accountBalance[index]);
+                AskForRating();
 
             }
             catch (FormatException)
