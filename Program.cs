@@ -1248,6 +1248,23 @@ namespace MiniBankSystem_1
             return ok;
         }
 
+        // Prompt the user to rate the service after a successful transaction 
+        static void AskForRating()
+        {
+            Console.Write("\nRate today’s service (1-5, or Enter to skip): ");
+            string input = Console.ReadLine();
+            if (int.TryParse(input, out int score) && score >= 1 && score <= 5)
+            {
+                feedbackRatings.Add(score);
+                Console.WriteLine("Thanks for your feedback!");
+            }
+            else if (input.Length > 0)          // user typed something invalid
+            {
+                Console.WriteLine("Invalid rating – ignored.");
+            }
+        }
+
+
 
 
 
