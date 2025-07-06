@@ -208,6 +208,8 @@ namespace MiniBankSystem_1
                 Console.WriteLine("8. Show Total Bank Balance");
                 Console.WriteLine("9. Export All Account Info to CSV");
                 Console.WriteLine("10. Approve/Reject Loan Requests");
+                Console.WriteLine("11. View Average Feedback Score");
+
                 Console.WriteLine("0. Back to Main Menu");
                 Console.Write("Select option: ");
                 string adminChoice = Console.ReadLine();
