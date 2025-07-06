@@ -1138,6 +1138,7 @@ namespace MiniBankSystem_1
                     if (choice == "a")
                     {
                         accountBalance[i] += loanRequests[i].Amount;
+                        LogTx(accountNumbers[i], "LOAN-DISBURSE", loanRequests[i].Amount, accountBalance[i]);
                         hasActiveLoan[i] = true;
                         Console.WriteLine("Loan approved and amount added to balance.");
                     }
@@ -1147,6 +1148,8 @@ namespace MiniBankSystem_1
                     }
 
                     loanRequests[i] = (0, 0); // reset
+                   
+
                 }
             }
 
