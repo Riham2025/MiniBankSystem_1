@@ -147,6 +147,7 @@ namespace MiniBankSystem_1
                 Console.WriteLine("5. Transfer Funds");
                 Console.WriteLine("6. Undo Last Complaint");
                 Console.WriteLine("7. Request Monthly Statement");
+                Console.WriteLine("8. Request Loan");
                 Console.WriteLine("0. Back to Main Menu");
                 Console.Write("Select option: ");
                 string userChoice = Console.ReadLine();
