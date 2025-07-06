@@ -368,6 +368,7 @@ namespace MiniBankSystem_1
                 LogTx(accountNumbers[index], "DEPOSIT", amount, accountBalance[index]);   // for statement
 
                 PrintReceipt("DEPOSIT", amount, accountNumbers[index], accountBalance[index]);
+                AskForRating();
 
 
             }
