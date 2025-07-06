@@ -1187,7 +1187,34 @@ namespace MiniBankSystem_1
         }
 
 
-      
+        // ——— show all transactions after a given date ———
+        static void ShowTransactionsAfterDate()
+        {
+            if (currentAccountIndex == -1) { Console.WriteLine("Login first."); return; }
+
+            Console.Write("Enter date (yyyy-mm-dd): ");
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime dt))
+            {
+                Console.WriteLine("Bad date."); return;
+            }
+
+            int acc = accountNumbers[currentAccountIndex];
+
+            var list = txLog
+                       .Where(t => t.Acc == acc && t.When >= dt)
+                       .OrderBy(t => t.When)
+                       .ToList();
+
+            if (list.Count == 0) { Console.WriteLine("No transactions since that date."); return; }
+
+            Console.WriteLine("\nDate & Time              Type            Amount        Balance");
+            Console.WriteLine("----------------------------------------------------------------");
+            foreach (var t in list)
+                Console.WriteLine($"{t.When:yyyy-MM-dd HH:mm}  {t.Kind,-14}  {t.Amount,10:C}   {t.Balance,10:C}");
+        }
+
+
+
 
 
 
