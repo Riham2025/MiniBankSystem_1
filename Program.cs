@@ -1273,6 +1273,27 @@ namespace MiniBankSystem_1
 
 
 
+        static void ShowAverageFeedback()
+        {
+            Console.Clear();
+            Console.WriteLine("\n====== Customer Feedback ======\n");
+
+            if (feedbackRatings.Count == 0)
+            {
+                Console.WriteLine("No ratings submitted yet.");
+                return;
+            }
+
+            double avg = feedbackRatings.Average();
+            Console.WriteLine($"Total ratings : {feedbackRatings.Count}");
+            Console.WriteLine($"Average score : {avg:F2} / 5");
+            Console.WriteLine("\nBreak-down:");
+            for (int s = 1; s <= 5; s++)
+            {
+                int cnt = feedbackRatings.Count(r => r == s);
+                Console.WriteLine($"  {s}-star : {cnt}");
+            }
+        }
 
 
 
