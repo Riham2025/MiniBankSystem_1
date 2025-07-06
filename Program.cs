@@ -164,6 +164,9 @@ namespace MiniBankSystem_1
                     case "6": UndoLastComplaint(); Console.ReadLine(); break;
                     case "7": MonthlyStatement(); Console.ReadLine(); break;
                     case "8": RequestLoan(); Console.ReadLine(); break;
+                    case "9": ShowLastNTransactions(); Console.ReadLine(); break;
+                    case "10": ShowTransactionsAfterDate(); Console.ReadLine(); break;
+
 
                     case "0":
                         inUserMenu = false;
