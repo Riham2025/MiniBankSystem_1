@@ -314,6 +314,7 @@ namespace MiniBankSystem_1
             accountNumbers.Add(newAccountNumber); // add the new account number to the list of account numbers
             accountName.Add(name); // add the name to the list of account names
             accountBalance.Add(0.0); // add the new account number to the list of balances with a default balance of 0
+            hasActiveLoan.Add(false); // no loan at creation
             lastAccountNumber = newAccountNumber; // update the last account number
             
            
