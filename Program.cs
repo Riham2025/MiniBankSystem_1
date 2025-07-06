@@ -111,17 +111,22 @@ namespace MiniBankSystem_1
                 switch (userChoice)
                 {
                     case "1": CreateAccount(); Console.ReadLine(); break;
-                    case "2":
-                        Login();
-                        // Require login first
-                        if (currentAccountIndex == -1 && !Login())
-                        { return; }                // user failed / aborted
-                        else
-                        {
-                            // If login is successful, show user operations menu
-                            UserOperations(); // Call the user operations method to show the user menu
-                        }
+                    case "2":                           // Admin Menu
+                        if (AdminLogin())               // ← ask for credentials first
+                            AdminMenu();                // open menu only on success
                         break;
+
+                    //case "2":
+                    //    Login();
+                    //    // Require login first
+                    //    if (currentAccountIndex == -1 && !Login())
+                    //    { return; }                // user failed / aborted
+                    //    else
+                    //    {
+                    //        // If login is successful, show user operations menu
+                    //        UserOperations(); // Call the user operations method to show the user menu
+                    //    }
+                    //    break;
                     case "0":
                         inUserMenu = false;
                         Logout();               // end session
