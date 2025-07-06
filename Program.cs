@@ -1159,6 +1159,35 @@ namespace MiniBankSystem_1
             }
         }
 
+        // ——— show the last N transactions for the logged-in user ———
+        static void ShowLastNTransactions()
+        {
+            if (currentAccountIndex == -1) { Console.WriteLine("Login first."); return; }
+
+            Console.Write("How many recent transactions? ");
+            if (!int.TryParse(Console.ReadLine(), out int n) || n <= 0)
+            {
+                Console.WriteLine("Invalid number."); return;
+            }
+
+            int acc = accountNumbers[currentAccountIndex];
+
+            var slice = txLog
+                        .Where(t => t.Acc == acc)
+                        .OrderByDescending(t => t.When)
+                        .Take(n)
+                        .ToList();
+
+            if (slice.Count == 0) { Console.WriteLine("No transactions found."); return; }
+
+            Console.WriteLine("\nDate & Time              Type            Amount        Balance");
+            Console.WriteLine("----------------------------------------------------------------");
+            foreach (var t in slice.OrderBy(t => t.When))                    // print oldest→newest
+                Console.WriteLine($"{t.When:yyyy-MM-dd HH:mm}  {t.Kind,-14}  {t.Amount,10:C}   {t.Balance,10:C}");
+        }
+
+
+      
 
 
 
