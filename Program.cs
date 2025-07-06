@@ -1223,6 +1223,24 @@ namespace MiniBankSystem_1
         }
 
 
+        static bool AdminLogin()
+        {
+            Console.Clear();
+            Console.WriteLine("====== Admin Login ======");
+            Console.Write("Admin ID      : ");
+            string id = Console.ReadLine()?.Trim();
+
+            Console.Write("Admin Password: ");
+            string pw = ReadPasswordMasked();
+
+            bool ok = id == ADMIN_ID && HashPassword(pw) == ADMIN_PASS_HASH;
+            Console.WriteLine(ok ? "Access granted." : "Access denied.");
+            if (!ok) Console.ReadKey();
+            return ok;
+        }
+
+
+
 
 
 
