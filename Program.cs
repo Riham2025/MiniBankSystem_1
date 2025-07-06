@@ -837,6 +837,7 @@ namespace MiniBankSystem_1
 
             Console.WriteLine($"\n  {amount:C} transferred from {senderAcc} to {recipientAcc}.");
             Console.WriteLine($"New Sender Balance: {accountBalance[senderIndex]:C}");
+            AskForRating();
         }
 
         static void ShowTopRichestCustomers()
